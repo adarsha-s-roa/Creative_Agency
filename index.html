@@ -1,0 +1,1204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LinkedIn 90-Day Playbook</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+--white:#ffffff;
+--bg:#f5f6fa;
+--surface:#ffffff;
+--surface2:#f0f2f8;
+--border:#e2e6f0;
+--border2:#c8cedf;
+--text:#1a1d2e;
+--muted:#6b7280;
+--muted2:#9ca3af;
+--accent:#2563eb;
+--accent-light:#eff6ff;
+--accent-border:#bfdbfe;
+--teal:#0d9488;
+--teal-light:#f0fdfa;
+--teal-border:#99f6e4;
+--amber:#d97706;
+--amber-light:#fffbeb;
+--amber-border:#fde68a;
+--coral:#dc2626;
+--coral-light:#fef2f2;
+--coral-border:#fecaca;
+--pink:#9333ea;
+--pink-light:#faf5ff;
+--pink-border:#e9d5ff;
+--green:#16a34a;
+--green-light:#f0fdf4;
+--green-border:#bbf7d0;
+--orange:#ea580c;
+--orange-light:#fff7ed;
+--orange-border:#fed7aa;
+--radius:10px;
+--radius-sm:6px;
+--radius-lg:14px;
+--shadow:0 1px 3px rgba(0,0,0,0.08),0 1px 2px rgba(0,0,0,0.04);
+--shadow-md:0 4px 12px rgba(0,0,0,0.08),0 2px 4px rgba(0,0,0,0.04);
+}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);font-size:14px;line-height:1.5;min-height:100vh}
+a{color:var(--accent);text-decoration:none}
+
+/* Shell */
+.shell{display:flex;min-height:100vh}
+
+/* Sidebar */
+.sidebar{width:230px;background:var(--white);border-right:1px solid var(--border);padding:0;flex-shrink:0;position:fixed;top:0;left:0;bottom:0;overflow-y:auto;z-index:100;box-shadow:var(--shadow)}
+.sidebar-logo{padding:20px 20px 16px;border-bottom:1px solid var(--border)}
+.logo-eyebrow{font-size:10px;font-weight:600;letter-spacing:1.5px;color:var(--accent);text-transform:uppercase;margin-bottom:4px}
+.logo-title{font-size:16px;font-weight:700;color:var(--text)}
+.logo-sub{font-size:11px;color:var(--muted);margin-top:2px}
+.sidebar-section{padding:16px 12px 8px}
+.sidebar-label{font-size:10px;font-weight:600;letter-spacing:1px;color:var(--muted2);text-transform:uppercase;padding:0 8px;margin-bottom:6px}
+.nav-item{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:var(--radius-sm);cursor:pointer;color:var(--muted);font-size:13px;font-weight:500;transition:all .15s;border:1px solid transparent;margin-bottom:2px;user-select:none}
+.nav-item:hover{background:var(--bg);color:var(--text)}
+.nav-item.active{background:var(--accent-light);color:var(--accent);border-color:var(--accent-border)}
+.nav-icon{font-size:16px;width:20px;text-align:center;flex-shrink:0}
+.week-list{padding:0 12px 16px}
+.week-btn{display:block;width:100%;padding:6px 10px;border-radius:var(--radius-sm);cursor:pointer;color:var(--muted);font-size:12px;font-weight:500;text-align:left;background:none;border:1px solid transparent;transition:all .15s;margin-bottom:2px;font-family:inherit}
+.week-btn:hover{background:var(--bg);color:var(--text)}
+.week-btn.active{background:var(--accent-light);color:var(--accent);border-color:var(--accent-border)}
+
+/* Progress bar in sidebar */
+.sidebar-progress{padding:16px;border-top:1px solid var(--border)}
+.prog-label{font-size:11px;color:var(--muted);margin-bottom:6px;display:flex;justify-content:space-between}
+.prog-bar{height:6px;background:var(--bg);border-radius:3px;overflow:hidden}
+.prog-fill{height:6px;background:var(--accent);border-radius:3px;transition:width .3s}
+
+/* Main */
+.main{margin-left:230px;flex:1;min-height:100vh;display:flex;flex-direction:column}
+
+/* Topbar */
+.topbar{background:var(--white);border-bottom:1px solid var(--border);padding:14px 28px;display:flex;align-items:center;gap:16px;position:sticky;top:0;z-index:90;box-shadow:var(--shadow)}
+.topbar-title{font-size:15px;font-weight:700;color:var(--text);flex:1}
+.topbar-pills{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.pill{display:flex;align-items:center;gap:5px;padding:4px 12px;border-radius:20px;font-size:12px;font-weight:600;border:1px solid}
+.pill-planned{background:var(--surface2);color:var(--muted);border-color:var(--border)}
+.pill-drafted{background:var(--amber-light);color:var(--amber);border-color:var(--amber-border)}
+.pill-posted{background:var(--green-light);color:var(--green);border-color:var(--green-border)}
+.pill-dot{width:6px;height:6px;border-radius:50%;background:currentColor}
+.view-toggle{display:flex;background:var(--bg);border:1px solid var(--border);border-radius:var(--radius-sm);padding:3px;gap:2px}
+.vbtn{padding:4px 12px;border-radius:4px;font-size:12px;font-weight:500;cursor:pointer;color:var(--muted);background:none;border:none;font-family:inherit;transition:all .15s}
+.vbtn.active{background:var(--white);color:var(--text);box-shadow:var(--shadow)}
+
+/* Filter bar */
+.filterbar{padding:14px 28px;display:flex;align-items:center;gap:10px;background:var(--white);border-bottom:1px solid var(--border);flex-wrap:wrap}
+.search-wrap{position:relative;min-width:200px;max-width:280px}
+.search-wrap input{width:100%;background:var(--bg);border:1px solid var(--border);border-radius:var(--radius-sm);padding:7px 10px 7px 34px;color:var(--text);font-size:13px;font-family:inherit;outline:none;transition:border-color .15s}
+.search-wrap input:focus{border-color:var(--accent);background:var(--white)}
+.search-wrap input::placeholder{color:var(--muted2)}
+.s-icon{position:absolute;left:10px;top:50%;transform:translateY(-50%);color:var(--muted2);font-size:14px;pointer-events:none}
+.chips{display:flex;gap:6px;flex-wrap:wrap}
+.chip{padding:5px 12px;border-radius:20px;font-size:12px;font-weight:500;cursor:pointer;border:1px solid var(--border);background:var(--white);color:var(--muted);transition:all .15s;white-space:nowrap;font-family:inherit}
+.chip:hover{color:var(--text);border-color:var(--border2)}
+.chip.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+.chip-organic.active{background:var(--teal);color:#fff;border-color:var(--teal)}
+.chip-ads.active{background:var(--orange);color:#fff;border-color:var(--orange)}
+.chip-carousel.active{background:var(--pink);color:#fff;border-color:var(--pink)}
+.chip-text.active{background:var(--amber);color:#fff;border-color:var(--amber)}
+.chip-video.active{background:var(--coral);color:#fff;border-color:var(--coral)}
+.chip-poll.active{background:var(--green);color:#fff;border-color:var(--green)}
+
+/* Content */
+.content{padding:24px 28px;flex:1}
+
+/* Week group */
+.week-group{margin-bottom:32px}
+.week-hdr{display:flex;align-items:center;gap:14px;margin-bottom:12px}
+.week-tag{font-size:11px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:var(--muted);white-space:nowrap;background:var(--surface2);padding:3px 10px;border-radius:20px;border:1px solid var(--border)}
+.week-line{flex:1;height:1px;background:var(--border)}
+.week-meta{font-size:11px;color:var(--muted2);white-space:nowrap}
+
+/* Post card */
+.post-card{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);padding:16px 20px;margin-bottom:8px;display:grid;grid-template-columns:72px 1fr auto;gap:16px;align-items:start;cursor:pointer;transition:all .15s;box-shadow:var(--shadow)}
+.post-card:hover{border-color:var(--border2);box-shadow:var(--shadow-md);transform:translateY(-1px)}
+.post-card.ads-card{border-left:3px solid var(--orange)}
+.post-card.organic-card{border-left:3px solid var(--teal)}
+
+.date-col{text-align:center;padding-top:2px}
+.date-day{font-size:10px;color:var(--muted2);text-transform:uppercase;letter-spacing:.5px}
+.date-num{font-size:26px;font-weight:700;color:var(--text);line-height:1;font-family:'DM Mono',monospace;margin:2px 0}
+.date-label{font-size:10px;color:var(--muted2)}
+.date-time{font-size:10px;color:var(--accent);font-family:'DM Mono',monospace;font-weight:500;margin-top:5px;background:var(--accent-light);padding:2px 6px;border-radius:4px;display:inline-block}
+
+.post-info{min-width:0}
+.meta-row{display:flex;align-items:center;gap:6px;margin-bottom:8px;flex-wrap:wrap}
+.fmt-badge{font-size:10px;font-weight:700;padding:2px 8px;border-radius:4px;letter-spacing:.3px;text-transform:uppercase}
+.fmt-carousel{background:var(--pink-light);color:var(--pink)}
+.fmt-text{background:var(--amber-light);color:var(--amber)}
+.fmt-video{background:var(--coral-light);color:var(--coral)}
+.fmt-poll{background:var(--green-light);color:var(--green)}
+.fmt-ad{background:var(--orange-light);color:var(--orange)}
+.type-badge{font-size:10px;font-weight:600;padding:2px 8px;border-radius:4px}
+.type-organic{background:var(--teal-light);color:var(--teal)}
+.type-ads{background:var(--orange-light);color:var(--orange)}
+.theme-pill{font-size:11px;color:var(--muted);background:var(--bg);padding:2px 8px;border-radius:4px;border:1px solid var(--border)}
+
+.post-title{font-size:14px;font-weight:600;color:var(--text);margin-bottom:5px;line-height:1.4}
+.post-preview{font-size:12px;color:var(--muted);line-height:1.55}
+.ad-targets{display:flex;gap:6px;margin-top:8px;flex-wrap:wrap}
+.target-tag{font-size:10px;font-weight:500;padding:2px 8px;border-radius:4px;background:var(--orange-light);color:var(--orange);border:1px solid var(--orange-border)}
+.budget-tag{font-size:10px;font-weight:600;padding:2px 8px;border-radius:4px;background:var(--accent-light);color:var(--accent);border:1px solid var(--accent-border)}
+
+.actions-col{display:flex;flex-direction:column;gap:6px;align-items:flex-end;flex-shrink:0}
+.status-btn{font-size:11px;font-weight:600;padding:4px 12px;border-radius:20px;cursor:pointer;border:1px solid;transition:all .15s;font-family:inherit;white-space:nowrap}
+.st-planned{background:var(--surface2);color:var(--muted);border-color:var(--border)}
+.st-drafted{background:var(--amber-light);color:var(--amber);border-color:var(--amber-border)}
+.st-posted{background:var(--green-light);color:var(--green);border-color:var(--green-border)}
+.gen-btn{font-size:11px;font-weight:600;padding:5px 12px;border-radius:var(--radius-sm);cursor:pointer;background:var(--accent);color:#fff;border:none;font-family:inherit;transition:all .15s;white-space:nowrap}
+.gen-btn:hover{background:#1d4ed8}
+.gen-btn:active{transform:scale(.97)}
+
+/* Views */
+.list-view{display:block}
+.list-view.hidden{display:none}
+.cal-view{display:none}
+.cal-view.visible{display:block}
+
+/* Calendar */
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;background:var(--border);gap:1px;box-shadow:var(--shadow)}
+.cal-hdr{background:var(--surface2);padding:8px;text-align:center;font-size:11px;font-weight:600;color:var(--muted);letter-spacing:.5px;text-transform:uppercase}
+.cal-day{background:var(--white);padding:8px;min-height:80px;cursor:pointer;transition:background .15s;position:relative}
+.cal-day:hover{background:var(--accent-light)}
+.cal-day.rest{background:var(--bg);cursor:default;opacity:.5}
+.cal-day.rest:hover{background:var(--bg)}
+.cal-day.organic-day{border-top:3px solid var(--teal)}
+.cal-day.ads-day{border-top:3px solid var(--orange)}
+.cal-day.both-day{border-top:3px solid var(--accent)}
+.cal-dnum{font-size:11px;color:var(--muted2);font-family:'DM Mono',monospace;margin-bottom:4px}
+.cal-chip{font-size:9px;font-weight:600;padding:2px 5px;border-radius:3px;display:block;margin-bottom:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+
+/* Modal */
+.overlay{display:none;position:fixed;inset:0;background:rgba(15,23,42,.45);z-index:200;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(2px)}
+.overlay.open{display:flex}
+.modal{background:var(--white);border:1px solid var(--border);border-radius:var(--radius-lg);width:100%;max-width:700px;max-height:92vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,.15)}
+.modal-top{padding:24px 28px 0}
+.modal-hdr{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:20px}
+.modal-title{font-size:16px;font-weight:700;color:var(--text);line-height:1.4}
+.modal-sub{font-size:12px;color:var(--muted);margin-top:4px}
+.close-btn{background:var(--bg);border:1px solid var(--border);color:var(--muted);border-radius:var(--radius-sm);padding:5px 10px;cursor:pointer;font-size:15px;flex-shrink:0;font-family:inherit;line-height:1;transition:all .15s}
+.close-btn:hover{background:var(--border);color:var(--text)}
+
+.detail-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:20px}
+.detail-box{background:var(--bg);border-radius:var(--radius-sm);padding:10px 12px;border:1px solid var(--border)}
+.detail-lbl{font-size:10px;color:var(--muted2);text-transform:uppercase;letter-spacing:.7px;margin-bottom:3px}
+.detail-val{font-size:13px;font-weight:600;color:var(--text)}
+
+.modal-section{padding:0 28px;margin-bottom:20px}
+.sec-lbl{font-size:11px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:var(--muted2);margin-bottom:8px}
+
+.idea-card{background:var(--accent-light);border-left:3px solid var(--accent);border-radius:0 var(--radius-sm) var(--radius-sm) 0;padding:14px 16px;margin-bottom:6px}
+.idea-hook{font-size:14px;font-weight:600;color:var(--text);margin-bottom:6px;line-height:1.5}
+.idea-body{font-size:13px;color:var(--muted);line-height:1.65}
+
+.ads-card-modal{background:var(--orange-light);border-left:3px solid var(--orange);border-radius:0 var(--radius-sm) var(--radius-sm) 0;padding:14px 16px}
+.ads-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
+.ads-item{background:var(--white);border-radius:var(--radius-sm);padding:10px 12px;border:1px solid var(--orange-border)}
+.ads-item-lbl{font-size:10px;font-weight:700;color:var(--orange);text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px}
+.ads-item-val{font-size:13px;color:var(--text);line-height:1.5}
+
+.tone-row{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
+.tone-btn{font-size:12px;padding:5px 14px;border-radius:20px;border:1px solid var(--border);background:var(--white);color:var(--muted);cursor:pointer;font-family:inherit;transition:all .15s}
+.tone-btn:hover{border-color:var(--accent);color:var(--accent)}
+.tone-btn.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+
+.caption-box{background:var(--bg);border:1px solid var(--border);border-radius:var(--radius-sm);padding:16px;min-height:180px;font-size:13px;color:var(--text);line-height:1.85;white-space:pre-wrap;font-family:inherit;position:relative;margin-bottom:10px;transition:border-color .2s}
+.caption-box:focus-within{border-color:var(--accent)}
+.caption-placeholder{color:var(--muted2);font-style:italic}
+.caption-loading{color:var(--muted);display:flex;align-items:center;gap:8px}
+.spinner{width:16px;height:16px;border:2px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:spin .8s linear infinite;flex-shrink:0}
+@keyframes spin{to{transform:rotate(360deg)}}
+.char-count{font-size:11px;color:var(--muted2);font-family:'DM Mono',monospace;text-align:right;margin-bottom:14px}
+
+.modal-footer{padding:16px 28px 24px;display:flex;gap:8px;justify-content:space-between;align-items:center;flex-wrap:wrap;border-top:1px solid var(--border);margin-top:4px}
+.footer-left{display:flex;gap:8px}
+.footer-right{display:flex;gap:8px;align-items:center}
+.btn{font-size:13px;font-weight:600;padding:8px 18px;border-radius:var(--radius-sm);cursor:pointer;font-family:inherit;transition:all .15s;border:1px solid transparent}
+.btn-primary{background:var(--accent);color:#fff}
+.btn-primary:hover{background:#1d4ed8}
+.btn-secondary{background:var(--white);color:var(--text);border-color:var(--border)}
+.btn-secondary:hover{background:var(--bg)}
+.btn-copy{background:var(--teal-light);color:var(--teal);border-color:var(--teal-border)}
+.btn-copy:hover{background:var(--teal);color:#fff}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+
+/* Tabs for sections */
+.section-tabs{display:flex;gap:4px;padding:16px 28px 0;background:var(--white);border-bottom:1px solid var(--border)}
+.stab{padding:10px 16px;font-size:13px;font-weight:500;color:var(--muted);cursor:pointer;border-bottom:2px solid transparent;transition:all .15s;white-space:nowrap;font-family:inherit;background:none;border-top:none;border-left:none;border-right:none}
+.stab:hover{color:var(--text)}
+.stab.active{color:var(--accent);border-bottom-color:var(--accent);font-weight:600}
+
+/* Section content */
+.section-pane{display:none;padding:24px 28px}
+.section-pane.active{display:block}
+
+/* Ad strategy section */
+.ad-overview-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-bottom:24px}
+.ad-stat{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);padding:16px 20px;box-shadow:var(--shadow)}
+.ad-stat-val{font-size:28px;font-weight:700;color:var(--accent);font-family:'DM Mono',monospace}
+.ad-stat-lbl{font-size:12px;color:var(--muted);margin-top:4px}
+.ad-stat-sub{font-size:11px;color:var(--muted2);margin-top:2px}
+
+.strategy-card{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);padding:20px;margin-bottom:12px;box-shadow:var(--shadow)}
+.strategy-card h3{font-size:14px;font-weight:700;color:var(--text);margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.strategy-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px}
+.strategy-item{background:var(--bg);border-radius:var(--radius-sm);padding:10px 12px;border:1px solid var(--border)}
+.strategy-item-lbl{font-size:10px;font-weight:700;color:var(--muted2);text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px}
+.strategy-item-val{font-size:13px;color:var(--text);font-weight:500;line-height:1.5}
+
+/* Profile checklist */
+.checklist{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.checklist li{display:flex;align-items:flex-start;gap:8px;font-size:13px;color:var(--text);background:var(--white);border:1px solid var(--border);border-radius:var(--radius-sm);padding:10px 12px;box-shadow:var(--shadow)}
+.check-icon{width:18px;height:18px;border-radius:50%;background:var(--green-light);border:1px solid var(--green-border);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:10px;margin-top:1px}
+input.check-input{width:16px;height:16px;cursor:pointer;accent-color:var(--accent);flex-shrink:0;margin-top:2px}
+
+/* Groups section */
+.group-card{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);padding:16px 20px;margin-bottom:10px;display:flex;gap:14px;box-shadow:var(--shadow)}
+.group-icon-box{width:42px;height:42px;border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
+.group-name{font-size:14px;font-weight:600;color:var(--text);margin-bottom:4px}
+.group-desc{font-size:12px;color:var(--muted);margin-bottom:6px;line-height:1.55}
+.group-action{font-size:11px;font-weight:600;color:var(--accent)}
+
+/* Toast */
+.toast{position:fixed;bottom:24px;right:24px;background:var(--text);color:#fff;padding:10px 18px;border-radius:var(--radius);font-size:13px;font-weight:500;opacity:0;transform:translateY(8px);transition:all .25s;z-index:300;pointer-events:none;box-shadow:var(--shadow-md)}
+.toast.show{opacity:1;transform:translateY(0)}
+
+/* Scrollbar */
+::-webkit-scrollbar{width:5px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--border2);border-radius:3px}
+
+.empty{text-align:center;padding:48px;color:var(--muted)}
+.tag-row{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px}
+</style>
+</head>
+<body>
+<div class="shell">
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-eyebrow">LinkedIn OS</div>
+    <div class="logo-title">90-Day Playbook</div>
+    <div class="logo-sub">Organic + Ads · Agency Growth</div>
+  </div>
+
+  <div class="sidebar-section">
+    <div class="sidebar-label">Sections</div>
+    <div class="nav-item active" onclick="showTab('calendar')"><span class="nav-icon">📅</span>Content Calendar</div>
+    <div class="nav-item" onclick="showTab('ads')"><span class="nav-icon">🎯</span>Ad Strategy</div>
+    <div class="nav-item" onclick="showTab('profile')"><span class="nav-icon">⚡</span>Profile Checklist</div>
+    <div class="nav-item" onclick="showTab('groups')"><span class="nav-icon">👥</span>Group Strategy</div>
+    <div class="nav-item" onclick="showTab('tips')"><span class="nav-icon">🧠</span>Algorithm Tips</div>
+  </div>
+
+  <div class="sidebar-section">
+    <div class="sidebar-label">Jump to Week</div>
+    <div class="week-list">
+      <button class="week-btn active" onclick="jumpWeek(0)">All weeks</button>
+      <button class="week-btn" onclick="jumpWeek(1)">Week 1–2 · Foundation</button>
+      <button class="week-btn" onclick="jumpWeek(2)">Week 3–4 · Build</button>
+      <button class="week-btn" onclick="jumpWeek(3)">Week 5–6 · Engage</button>
+      <button class="week-btn" onclick="jumpWeek(4)">Week 7–8 · Scale</button>
+      <button class="week-btn" onclick="jumpWeek(5)">Week 9–10 · Convert</button>
+      <button class="week-btn" onclick="jumpWeek(6)">Week 11–13 · Review</button>
+    </div>
+  </div>
+
+  <div class="sidebar-progress">
+    <div class="prog-label"><span>Posts completed</span><span id="prog-pct">0%</span></div>
+    <div class="prog-bar"><div class="prog-fill" id="prog-fill" style="width:0%"></div></div>
+  </div>
+</aside>
+
+<!-- MAIN -->
+<div class="main">
+
+  <!-- TOPBAR -->
+  <div class="topbar">
+    <div class="topbar-title" id="topbar-title">Content Calendar — 90 Days</div>
+    <div class="topbar-pills">
+      <div class="pill pill-planned"><span class="pill-dot"></span><span id="cnt-planned">0</span> planned</div>
+      <div class="pill pill-drafted"><span class="pill-dot"></span><span id="cnt-drafted">0</span> drafted</div>
+      <div class="pill pill-posted"><span class="pill-dot"></span><span id="cnt-posted">0</span> posted</div>
+    </div>
+    <div class="view-toggle" id="view-toggle" style="display:flex">
+      <button class="vbtn active" onclick="setView('list')">List</button>
+      <button class="vbtn" onclick="setView('cal')">Calendar</button>
+    </div>
+  </div>
+
+  <!-- FILTER BAR (calendar only) -->
+  <div class="filterbar" id="filterbar">
+    <div class="search-wrap">
+      <span class="s-icon">🔍</span>
+      <input type="text" id="search" placeholder="Search posts…" oninput="render()">
+    </div>
+    <div class="chips">
+      <button class="chip active" onclick="setChip('all',this)">All</button>
+      <button class="chip chip-organic" onclick="setChip('organic',this)">🌱 Organic</button>
+      <button class="chip chip-ads" onclick="setChip('ads',this)">🎯 Ads</button>
+      <button class="chip chip-carousel" onclick="setChip('Carousel',this)">📊 Carousel</button>
+      <button class="chip chip-text" onclick="setChip('Text',this)">✍️ Text</button>
+      <button class="chip chip-video" onclick="setChip('Video',this)">🎥 Video</button>
+      <button class="chip chip-poll" onclick="setChip('Poll',this)">📣 Poll</button>
+    </div>
+  </div>
+
+  <!-- SECTION CONTENT -->
+  <!-- CALENDAR -->
+  <div id="tab-calendar" class="section-pane active" style="padding:24px 28px">
+    <div id="list-view" class="list-view"></div>
+    <div id="cal-view" class="cal-view"></div>
+  </div>
+
+  <!-- ADS STRATEGY -->
+  <div id="tab-ads" class="section-pane">
+    <div class="ad-overview-grid">
+      <div class="ad-stat"><div class="ad-stat-val">₹6–7K</div><div class="ad-stat-lbl">Monthly ad budget</div><div class="ad-stat-sub">LinkedIn Campaign Manager</div></div>
+      <div class="ad-stat"><div class="ad-stat-val">1</div><div class="ad-stat-lbl">Campaign at a time</div><div class="ad-stat-sub">Tight budget = focus</div></div>
+      <div class="ad-stat"><div class="ad-stat-val">3–8</div><div class="ad-stat-lbl">Leads per month</div><div class="ad-stat-sub">Expected from paid</div></div>
+      <div class="ad-stat"><div class="ad-stat-val">₹800</div><div class="ad-stat-lbl">Target cost per lead</div><div class="ad-stat-sub">For mid-funnel offers</div></div>
+    </div>
+
+    <div class="strategy-card">
+      <h3>🎯 What campaign to run (Month 1–2)</h3>
+      <div class="strategy-grid">
+        <div class="strategy-item"><div class="strategy-item-lbl">Campaign objective</div><div class="strategy-item-val">Lead Generation with native Lead Gen Form (10–13% conversion vs 2–5% landing page)</div></div>
+        <div class="strategy-item"><div class="strategy-item-lbl">Ad format</div><div class="strategy-item-val">Single image ad OR Document ad (PDF preview drives trust before lead submit)</div></div>
+        <div class="strategy-item"><div class="strategy-item-lbl">Offer</div><div class="strategy-item-val">"Free 30-min Digital Marketing Audit for your business" — no pitch, pure value</div></div>
+        <div class="strategy-item"><div class="strategy-item-lbl">Ad copy hook</div><div class="strategy-item-val">"Is your business spending on ads without knowing if it works? We'll show you what's wrong — free."</div></div>
+      </div>
+    </div>
+
+    <div class="strategy-card">
+      <h3>👤 Who to target</h3>
+      <div class="strategy-grid">
+        <div class="strategy-item"><div class="strategy-item-lbl">Location</div><div class="strategy-item-val">India (broad — targeting only Bangalore limits reach too much at ₹6K budget)</div></div>
+        <div class="strategy-item"><div class="strategy-item-lbl">Job titles</div><div class="strategy-item-val">Founder, CEO, Managing Director, Business Owner, Marketing Head, Marketing Manager</div></div>
+        <div class="strategy-item"><div class="strategy-item-lbl">Company size</div><div class="strategy-item-val">2–200 employees (SMEs who need marketing help but can't afford big agencies)</div></div>
+        <div class="strategy-item"><div class="strategy-item-lbl">Industries</div><div class="strategy-item-val">Retail, Education, Hospitality, SaaS, D2C, Real Estate, Healthcare, Manufacturing</div></div>
+        <div class="strategy-item"><div class="strategy-item-lbl">International (month 3+)</div><div class="strategy-item-val">US, UK, Australia + job titles: Marketing Director, VP Marketing, CMO, Agency Owner</div></div>
+        <div class="strategy-item"><div class="strategy-item-lbl">Exclude</div><div class="strategy-item-val">Marketing agencies (competitors), students, entry-level job titles</div></div>
+      </div>
+    </div>
+
+    <div class="strategy-card">
+      <h3>💰 How to spend ₹6,000–7,000/month</h3>
+      <div class="strategy-grid">
+        <div class="strategy-item"><div class="strategy-item-lbl">Main campaign (Lead Gen)</div><div class="strategy-item-val">₹4,500 — run Tue–Thu only when decision-makers are most active</div></div>
+        <div class="strategy-item"><div class="strategy-item-lbl">Retargeting warm audience</div><div class="strategy-item-val">₹1,500 — retarget people who viewed your profile or engaged with your posts</div></div>
+        <div class="strategy-item"><div class="strategy-item-lbl">Test/reserve</div><div class="strategy-item-val">₹500–1,000 — test a second ad variant (different headline) in week 3</div></div>
+        <div class="strategy-item"><div class="strategy-item-lbl">Daily spend</div><div class="strategy-item-val">₹830/day minimum (LinkedIn's floor). Run 7–8 active days per month</div></div>
+        <div class="strategy-item"><div class="strategy-item-lbl">Bid strategy</div><div class="strategy-item-val">Maximum delivery first, switch to Manual CPC once you have 10+ leads data</div></div>
+        <div class="strategy-item"><div class="strategy-item-lbl">When to scale</div><div class="strategy-item-val">If CPL under ₹1,500 and 1+ client closes → increase budget month 2. Never scale losing campaigns.</div></div>
+      </div>
+    </div>
+
+    <div class="strategy-card">
+      <h3>📊 KPIs to track weekly</h3>
+      <div class="strategy-grid">
+        <div class="strategy-item"><div class="strategy-item-lbl">CTR (click-through rate)</div><div class="strategy-item-val">Target: 0.4%+ for sponsored content. Below 0.3% → rewrite ad copy.</div></div>
+        <div class="strategy-item"><div class="strategy-item-lbl">Lead form completion</div><div class="strategy-item-val">Target: 10%+ completion rate. Below 8% → simplify form or change offer.</div></div>
+        <div class="strategy-item"><div class="strategy-item-lbl">Cost per lead (CPL)</div><div class="strategy-item-val">Target: ₹800–2,500 for mid-funnel. Above ₹3,000 → pause and rethink targeting.</div></div>
+        <div class="strategy-item"><div class="strategy-item-lbl">Lead to call rate</div><div class="strategy-item-val">Target: 30%+ of leads book a call. Below 20% → improve follow-up speed (call within 2hrs).</div></div>
+        <div class="strategy-item"><div class="strategy-item-lbl">Cost per booked call</div><div class="strategy-item-val">This is your real metric. CPL ÷ lead-to-call rate = cost per call. Target under ₹5,000.</div></div>
+        <div class="strategy-item"><div class="strategy-item-lbl">ROI check</div><div class="strategy-item-val">1 client at ₹20K/month = ₹3,000–4,000 your cut. Break even with just 2 clients from ads.</div></div>
+      </div>
+    </div>
+
+    <div class="strategy-card">
+      <h3>📅 Ad posting schedule — when to run</h3>
+      <div class="strategy-grid">
+        <div class="strategy-item"><div class="strategy-item-lbl">Best days</div><div class="strategy-item-val">Tuesday, Wednesday, Thursday. Highest B2B decision-maker activity. Pause Sat–Sun.</div></div>
+        <div class="strategy-item"><div class="strategy-item-lbl">Best hours</div><div class="strategy-item-val">8 AM – 12 PM IST and 5 PM – 7 PM IST. Use dayparting in campaign settings.</div></div>
+        <div class="strategy-item"><div class="strategy-item-lbl">Month 1–2</div><div class="strategy-item-val">India only. Test offer + copy. Goal: get first 10 leads, book 3 calls.</div></div>
+        <div class="strategy-item"><div class="strategy-item-lbl">Month 3+</div><div class="strategy-item-val">Add international audiences separately. Don't mix India + global in same campaign.</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PROFILE CHECKLIST -->
+  <div id="tab-profile" class="section-pane">
+    <div class="strategy-card" style="margin-bottom:16px">
+      <h3>⚡ Matt Gray's exact profile checklist (do this before posting anything)</h3>
+      <p style="font-size:13px;color:var(--muted);margin-bottom:16px">Your profile is your storefront that never closes. Every post you make sends people here. Optimize this first.</p>
+      <ul class="checklist">
+        <li><input class="check-input" type="checkbox" onchange="saveProg()"><div><strong>Banner image</strong> — Show what you do. Text on banner: "Helping Indian brands get leads from LinkedIn, Meta & Google." Use Canva, free template.</div></li>
+        <li><input class="check-input" type="checkbox" onchange="saveProg()"><div><strong>Profile photo</strong> — Real face, good lighting, smile, professional background. No logos.</div></li>
+        <li><input class="check-input" type="checkbox" onchange="saveProg()"><div><strong>Headline formula</strong> — [What you do] + [Who you help] + [Outcome]. Example: "Digital Marketing Consultant | Helping Indian SMEs get 10× more leads from LinkedIn &amp; Meta"</div></li>
+        <li><input class="check-input" type="checkbox" onchange="saveProg()"><div><strong>About section</strong> — First line must hook. "I help Bangalore businesses get consistent leads from digital marketing — without wasting budget." Then story + proof + CTA.</div></li>
+        <li><input class="check-input" type="checkbox" onchange="saveProg()"><div><strong>Featured section</strong> — Pin 2 items: (1) Your best post ever. (2) Link to free audit booking page or Calendly. This converts profile visitors to leads.</div></li>
+        <li><input class="check-input" type="checkbox" onchange="saveProg()"><div><strong>Experience section</strong> — Add current role with results: "Generated X leads for Y clients. Commission-based digital marketing consultant."</div></li>
+        <li><input class="check-input" type="checkbox" onchange="saveProg()"><div><strong>Creator mode ON</strong> — Go to Settings → Visibility → Creator mode. Unlocks newsletter, follow button, analytics.</div></li>
+        <li><input class="check-input" type="checkbox" onchange="saveProg()"><div><strong>Contact info</strong> — Add email + website/Calendly link so people can reach you directly.</div></li>
+        <li><input class="check-input" type="checkbox" onchange="saveProg()"><div><strong>Custom URL</strong> — Change to linkedin.com/in/yourname (no random numbers). Looks professional.</div></li>
+        <li><input class="check-input" type="checkbox" onchange="saveProg()"><div><strong>Skills section</strong> — Add: Digital Marketing, LinkedIn Marketing, Meta Ads, Google Ads, Lead Generation, Social Media Marketing, Content Strategy.</div></li>
+        <li><input class="check-input" type="checkbox" onchange="saveProg()"><div><strong>Follow 20 creators</strong> — Follow top digital marketing voices + Bangalore business owners in your niche. Their posts show in your feed = content ideas.</div></li>
+        <li><input class="check-input" type="checkbox" onchange="saveProg()"><div><strong>Start LinkedIn Newsletter</strong> — Create a newsletter (e.g. "Marketing That Works for Indian Businesses"). Subscribers get email notification every time you publish.</div></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- GROUPS -->
+  <div id="tab-groups" class="section-pane">
+    <div class="strategy-card" style="margin-bottom:16px">
+      <h3>👥 Why groups matter for you specifically</h3>
+      <p style="font-size:13px;color:var(--muted)">Groups give you free access to message members without being connected — bypassing LinkedIn's weekly connection limit. Pre-qualified, intent-rich audiences already sorted for you.</p>
+    </div>
+
+    <div class="sec-lbl" style="margin-bottom:10px">Groups to join (search these in LinkedIn)</div>
+    <div class="group-card">
+      <div class="group-icon-box" style="background:var(--accent-light)">🏢</div>
+      <div><div class="group-name">Digital Marketing India / B2B Marketing India</div><div class="group-desc">Your primary lead source. SME owners and marketing heads hang out here asking questions about digital marketing. Answer their questions → instant authority → DM conversations.</div><div class="group-action">Search: "Digital Marketing India" · "B2B Marketing India" · "Social Media Marketing India"</div></div>
+    </div>
+    <div class="group-card">
+      <div class="group-icon-box" style="background:var(--teal-light)">🏙️</div>
+      <div><div class="group-name">Bangalore Entrepreneurs / Bangalore Business Network</div><div class="group-desc">Hyper-local groups where Bangalore founders actively seek service providers. Location relevance builds instant trust — you're not just another marketer, you're their city's marketer.</div><div class="group-action">Search: "Bangalore Entrepreneurs" · "Bangalore Business" · "Bangalore Startups"</div></div>
+    </div>
+    <div class="group-card">
+      <div class="group-icon-box" style="background:var(--amber-light)">🚀</div>
+      <div><div class="group-name">Indian Founders / SME India / Startup India</div><div class="group-desc">Decision-makers (founders, MDs) constantly looking for marketing solutions. Be the helpful expert who answers questions — never pitch in first interaction.</div><div class="group-action">Search: "Indian Entrepreneurs" · "Startup India Founders" · "SME India"</div></div>
+    </div>
+    <div class="group-card">
+      <div class="group-icon-box" style="background:var(--pink-light)">🌍</div>
+      <div><div class="group-name">Agency Owner Network / B2B SaaS Growth</div><div class="group-desc">For attracting international clients for the agency. Position yourself as India-based agency with global capabilities. International clients often prefer Indian agencies for cost + quality.</div><div class="group-action">Search: "Agency Growth" · "B2B SaaS Marketing" · "Agency Owner Network" · "International Business"</div></div>
+    </div>
+    <div class="group-card">
+      <div class="group-icon-box" style="background:var(--green-light)">🎪</div>
+      <div><div class="group-name">Event Professionals India / Chennai Business Events</div><div class="group-desc">For the events clients (yellove_creations + playful_explorers). Event organizers, venue managers, and corporate buyers are here. Share event marketing tips to attract them.</div><div class="group-action">Search: "Event Management India" · "Corporate Events India" · "Event Planning South India"</div></div>
+    </div>
+
+    <div class="strategy-card" style="margin-top:16px">
+      <h3>📋 5-step group system (do this weekly)</h3>
+      <div class="strategy-grid">
+        <div class="strategy-item"><div class="strategy-item-lbl">Week 1: Observe only</div><div class="strategy-item-val">Join 8–10 groups. Don't post. Read what people struggle with. Note their exact language — use this in your posts and DMs.</div></div>
+        <div class="strategy-item"><div class="strategy-item-lbl">Week 2: Answer questions</div><div class="strategy-item-val">When someone posts "which platform should I use?" — answer with 3–4 helpful lines. No pitching. Sign off with name and role only.</div></div>
+        <div class="strategy-item"><div class="strategy-item-lbl">Week 3: Post value content</div><div class="strategy-item-val">Share your best-performing LinkedIn posts into groups. Already-proven content. Groups amplify what's already worked on your feed.</div></div>
+        <div class="strategy-item"><div class="strategy-item-lbl">Week 3–4: Warm DMs</div><div class="strategy-item-val">After commenting on someone's post or they liked yours: "Hi [Name], I saw your question in [Group] about [topic] — I've helped a few businesses with exactly this. Happy to share?"</div></div>
+        <div class="strategy-item"><div class="strategy-item-lbl">Month 2: Create own group</div><div class="strategy-item-val">Create "Digital Marketing for Indian Businesses." Invite connections. Post weekly insights. Being the admin = permanent authority position.</div></div>
+        <div class="strategy-item"><div class="strategy-item-lbl">Secret advantage</div><div class="strategy-item-val">LinkedIn lets you message group members WITHOUT being connected. Bypasses the weekly connection request limit entirely.</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TIPS -->
+  <div id="tab-tips" class="section-pane">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px">
+      <div class="strategy-card"><h3>⏰ Timing</h3><p style="font-size:13px;color:var(--muted);line-height:1.7">Post Tuesday–Thursday 8–10 AM IST. This is when Indian decision-makers check LinkedIn before meetings. Avoid Friday afternoon and all weekend. The first 90 minutes after posting determine your total reach — stay online and reply to every comment.</p></div>
+      <div class="strategy-card"><h3>💬 Comments beat likes 7×</h3><p style="font-size:13px;color:var(--muted);line-height:1.7">Comments carry 7× more algorithmic weight than likes. End every post with ONE specific question — not "What do you think?" but "Which of these 5 mistakes is costing Indian businesses the most in your experience?"</p></div>
+      <div class="strategy-card"><h3>🔗 Never link in post body</h3><p style="font-size:13px;color:var(--muted);line-height:1.7">LinkedIn penalizes external links in posts by 3×. Always put links in the first comment after publishing. Write "Link in first comment 👇" in the post body. This single change can double your organic reach instantly.</p></div>
+      <div class="strategy-card"><h3>📌 Saves matter more than likes</h3><p style="font-size:13px;color:var(--muted);line-height:1.7">In 2026, saves are weighted higher than likes in the algorithm. Create "save this for later" content — checklists, step-by-step frameworks, comparison guides. Carousels get the most saves of any format.</p></div>
+      <div class="strategy-card"><h3>🎥 Vertical video = biggest reach</h3><p style="font-size:13px;color:var(--muted);line-height:1.7">Short-form vertical video (15–60 sec, portrait) gets 5–10× more reach via LinkedIn's new video feed. Always add captions — 85% watch without sound. Talk about one real result, one real mistake, or one hot take.</p></div>
+      <div class="strategy-card"><h3>👤 Personal > Company page</h3><p style="font-size:13px;color:var(--muted);line-height:1.7">LinkedIn's algorithm gives personal profiles 561% more reach than company pages. Your personal page does the heavy lifting. The company page is for credibility when prospects check you out. Post content from YOUR profile first.</p></div>
+      <div class="strategy-card"><h3>🔄 Repurpose winners</h3><p style="font-size:13px;color:var(--muted);line-height:1.7">High-performing text post → carousel. High-save carousel → video. High-engagement video → newsletter article. One great idea = 4 pieces of content = 4× reach. Never let a winning idea die after one format.</p></div>
+      <div class="strategy-card"><h3>👥 The 25-person rule (Matt Gray)</h3><p style="font-size:13px;color:var(--muted);line-height:1.7">Matt Gray ensures 25 people engage with his content in the first 45 minutes. Build a group of 10–15 colleagues, fellow marketers, or clients who agree to genuinely comment on each other's posts immediately after publishing. Authentic, real comments only.</p></div>
+      <div class="strategy-card"><h3>📊 Review monthly</h3><p style="font-size:13px;color:var(--muted);line-height:1.7">Every 30 days review your top 3 performing posts. What format? What topic? What hook style? Double down on what worked. Kill what didn't. Matt Gray reviews all high-performing content on the platform and reformulates strategy monthly.</p></div>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<!-- MODAL -->
+<div class="overlay" id="overlay">
+  <div class="modal">
+    <div class="modal-top">
+      <div class="modal-hdr">
+        <div>
+          <div class="modal-title" id="m-title">Post title</div>
+          <div class="modal-sub" id="m-sub">Day · Format · Theme</div>
+        </div>
+        <button class="close-btn" onclick="closeModal()">✕</button>
+      </div>
+      <div class="detail-grid">
+        <div class="detail-box"><div class="detail-lbl">Type</div><div class="detail-val" id="m-type">Organic</div></div>
+        <div class="detail-box"><div class="detail-lbl">Format</div><div class="detail-val" id="m-format">Carousel</div></div>
+        <div class="detail-box"><div class="detail-lbl">Post at</div><div class="detail-val" id="m-time">9:00 AM IST</div></div>
+        <div class="detail-box"><div class="detail-lbl">Theme</div><div class="detail-val" id="m-theme">Value</div></div>
+      </div>
+    </div>
+
+    <div class="modal-section">
+      <div class="sec-lbl">Post idea & hook</div>
+      <div class="idea-card">
+        <div class="idea-hook" id="m-hook">Hook</div>
+        <div class="idea-body" id="m-points">Points</div>
+      </div>
+    </div>
+
+    <div id="m-ads-section" class="modal-section" style="display:none">
+      <div class="sec-lbl">Ad details</div>
+      <div class="ads-card-modal">
+        <div style="font-size:13px;font-weight:600;color:var(--orange);margin-bottom:8px">LinkedIn Ad Campaign Details</div>
+        <div class="ads-grid">
+          <div class="ads-item"><div class="ads-item-lbl">Target audience</div><div class="ads-item-val" id="m-target">—</div></div>
+          <div class="ads-item"><div class="ads-item-lbl">Budget</div><div class="ads-item-val" id="m-budget">—</div></div>
+          <div class="ads-item"><div class="ads-item-lbl">Ad format</div><div class="ads-item-val" id="m-adformat">—</div></div>
+          <div class="ads-item"><div class="ads-item-lbl">Goal</div><div class="ads-item-val" id="m-goal">—</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-section">
+      <div class="sec-lbl">Caption tone</div>
+      <div class="tone-row">
+        <button class="tone-btn active" onclick="setTone(this,'professional')">Professional</button>
+        <button class="tone-btn" onclick="setTone(this,'conversational')">Conversational</button>
+        <button class="tone-btn" onclick="setTone(this,'bold')">Bold & direct</button>
+        <button class="tone-btn" onclick="setTone(this,'storytelling')">Storytelling</button>
+      </div>
+      <div class="caption-box" id="caption-box">
+        <span class="caption-placeholder">Click "✨ Generate Caption" to write your full LinkedIn post based on this day's idea, hook, and tone.</span>
+      </div>
+      <div class="char-count" id="char-count"></div>
+    </div>
+
+    <div class="modal-footer">
+      <div class="footer-left">
+        <button class="btn btn-primary" id="gen-btn" onclick="generateCaption()">✨ Generate Caption</button>
+        <button class="btn btn-secondary" onclick="generateCaption()">↺ Regenerate</button>
+      </div>
+      <div class="footer-right">
+        <button class="btn btn-copy" onclick="copyCaption()">📋 Copy</button>
+        <button class="btn btn-secondary" onclick="markStatus('drafted')">Mark drafted</button>
+        <button class="btn btn-secondary" onclick="markStatus('posted')" style="background:var(--green-light);color:var(--green);border-color:var(--green-border)">✓ Mark posted</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ─── DATA ────────────────────────────────────────────────────────────────────
+const POSTS = [
+  // ORGANIC POSTS
+  {day:1,dayName:'Mon',type:'organic',format:'Text',theme:'Intro / Personal brand',time:'9:00 AM',
+   hook:'I just left stability to bet on commission-only digital marketing. Here\'s why — and what week 1 really looked like.',
+   points:'Share your real story. Why you chose this path, what you left behind, the uncertainty you feel, what you\'re building. Make it raw and honest. End with: "What\'s the scariest professional bet you\'ve ever made?"'},
+
+  {day:2,dayName:'Wed',type:'organic',format:'Carousel',theme:'Value / Education',time:'8:30 AM',
+   hook:'5 reasons Bangalore businesses are burning their digital marketing budget (none of them know reason #3).',
+   points:'Slide 1: Hook. Slide 2: No defined audience — "18–45, interests: everything" is not targeting. Slide 3: Boosting posts instead of running real ads. Slide 4: Sending traffic to homepage not landing page. Slide 5: Zero retargeting. Slide 6: No tracking or measurement. Last slide: "Save this. Which one is killing your budget?"'},
+
+  {day:3,dayName:'Fri',type:'organic',format:'Poll',theme:'Engagement',time:'9:00 AM',
+   hook:'Honest poll for Indian business owners: What\'s your biggest digital marketing challenge right now?',
+   points:'Option 1: Not enough leads. Option 2: Leads don\'t convert to sales. Option 3: Don\'t know what\'s working. Option 4: Budget too small. After votes come in, reply in comments with your actual insight on each problem. This builds rapport.'},
+
+  {day:5,dayName:'Mon',type:'ads',format:'Ad',theme:'Lead Gen Campaign',time:'8:00 AM',
+   hook:'LAUNCH AD: "Free Digital Marketing Audit for Indian Businesses"',
+   points:'Ad copy: "Is your business getting leads from digital marketing — or just spending money? We\'ll show you exactly what\'s working and what isn\'t — completely free. No pitch. Just clarity." Use Lead Gen Form. Target: Indian founders + MDs, 2–200 employees, all industries.',
+   target:'Indian Founders, CEOs, MDs — Company size 2–200 — All India',
+   budget:'₹3,000 this week — run Tue/Thu only',
+   adformat:'Single image + Lead Gen Form',
+   goal:'Collect 3–5 leads for free audit'},
+
+  {day:8,dayName:'Mon',type:'organic',format:'Text',theme:'Hot take',time:'9:00 AM',
+   hook:'Hot take: Most Indian businesses don\'t need more followers. They need a better offer.',
+   points:'Expand: followers ≠ clients. Conversion problem vs reach problem. What a "better offer" actually means (specificity, clarity, risk reversal). Real example from an audit. End: "Has this been true for your business?"'},
+
+  {day:9,dayName:'Tue',type:'organic',format:'Video',theme:'Quick tip',time:'8:00 AM',
+   hook:'60-second video: The one thing I check first in every digital marketing audit (most agencies skip this)',
+   points:'Film yourself at desk. Talk about checking the offer clarity before anything else. "A great ad can\'t save a confusing offer." Show your screen briefly. Add captions. Keep it under 60 seconds. End with question.'},
+
+  {day:11,dayName:'Thu',type:'organic',format:'Carousel',theme:'Education',time:'9:00 AM',
+   hook:'The LinkedIn content formula that gets 10× more reach. Most people do step 3 wrong.',
+   points:'Slide 1: Hook. Slide 2: Hook formula — 2 lines max before "see more." Slide 3: Rule — NO links in post body (3× penalty). Slide 4: End with specific question not generic one. Slide 5: Reply every comment in 90 min window. Slide 6: Post Tue–Thu 8–10 AM. Slide 7: Comments = 7× weight of likes. Last: "Save + share."'},
+
+  {day:12,dayName:'Fri',type:'organic',format:'Text',theme:'Behind the scenes',time:'8:30 AM',
+   hook:'I sent 50 LinkedIn connection requests this week. Here\'s the honest breakdown of what happened.',
+   points:'Real numbers: how many accepted (target 30%+), how many replied (target 10%), how many became real conversations. What message worked vs what flopped. The specific wording that got responses. End: "What\'s your current acceptance rate?"'},
+
+  {day:13,dayName:'Mon',type:'ads',format:'Ad',theme:'Retargeting Campaign',time:'—',
+   hook:'AD: Retarget people who viewed your profile or engaged with organic posts',
+   points:'Set up retargeting audience in Campaign Manager: people who visited your profile in last 30 days + people who engaged with your LinkedIn posts. Show them a warmer ad: "You visited my profile recently — I help businesses like yours get consistent leads. Here\'s a free resource." Link to audit booking.',
+   target:'Website visitors + LinkedIn profile viewers + Post engagers (last 30 days)',
+   budget:'₹1,500 — run all week',
+   adformat:'Single image — conversational tone',
+   goal:'Warm lead → booked call'},
+
+  {day:15,dayName:'Mon',type:'organic',format:'Text',theme:'Contrarian',time:'9:00 AM',
+   hook:'Unpopular opinion: Spending ₹50,000/month on ads without fixing your messaging first is just burning money faster.',
+   points:'The leaky bucket analogy. Fix the offer → fix the landing page → THEN run ads. Most agencies skip steps 1 and 2 because they want the retainer. Real example from a Bangalore brand (anonymized). End: "Agree or have you seen it work the other way?"'},
+
+  {day:16,dayName:'Tue',type:'organic',format:'Video',theme:'Day in life',time:'8:00 AM',
+   hook:'Day in my life as a commission-based digital marketer in Bangalore — the reality nobody shows you',
+   points:'Raw 45–60 sec vertical video. Show the reality: prospecting on LinkedIn, writing content, client calls, uncertainty, the wins. No filter. This humanizes you massively and gets the most shares. Portrait mode. Add captions. Real = viral.'},
+
+  {day:18,dayName:'Thu',type:'organic',format:'Carousel',theme:'How-to',time:'9:00 AM',
+   hook:'How to write a LinkedIn post that gets seen by 10,000+ people (step-by-step for Indian professionals):',
+   points:'Slide 1: Hook. Slide 2: Start with a problem your audience has. Slide 3: Short paragraphs — max 2 lines. Slide 4: Use specific numbers always. Slide 5: Ask specific question at end. Slide 6: Post timing — Tue–Thu 8–10AM IST. Slide 7: Reply every comment within 60 min. Last: "Screenshot and save this."'},
+
+  {day:19,dayName:'Fri',type:'organic',format:'Poll',theme:'Engagement',time:'9:00 AM',
+   hook:'For business owners: How are you currently getting new clients?',
+   points:'Option 1: Word of mouth only. Option 2: Social media paid. Option 3: Social media organic. Option 4: Not consistently. Comment after: "DM me your business type and I\'ll tell you what\'s working best right now for businesses like yours."'},
+
+  {day:20,dayName:'Mon',type:'ads',format:'Ad',theme:'Case Study Ad',time:'—',
+   hook:'AD: "How a Bangalore business got 47 leads in 30 days with ₹8,000" — Document ad',
+   points:'Create a 6-page PDF document: page 1 = result hook, page 2 = the problem they had, page 3 = what we changed, page 4 = week-by-week results, page 5 = the exact strategy, page 6 = free audit CTA. Document ads let people preview before submitting — builds trust. High completion rate.',
+   target:'Founders + Marketing Managers — Retail, D2C, SaaS — India',
+   budget:'₹2,000 this week — run as document ad',
+   adformat:'Document Ad + Lead Gen Form',
+   goal:'Educate → trust → lead'},
+
+  {day:22,dayName:'Mon',type:'organic',format:'Text',theme:'Case study',time:'9:00 AM',
+   hook:'We spent ₹6,000 on LinkedIn ads. Honest week-by-week breakdown of what happened.',
+   points:'Week 1: 0 leads. Panicked. Week 2: 2 leads after tweaking offer. Week 3: 5 leads after new headline. Week 4: 9 leads, 3 calls, 1 client. What changed: stopped selling "digital marketing services," started offering free audits. Specific numbers make this shareable. End: "What\'s your best low-budget marketing result?"'},
+
+  {day:23,dayName:'Tue',type:'organic',format:'Video',theme:'Quick tip',time:'8:00 AM',
+   hook:'Why your Instagram ads aren\'t working — and it\'s not the algorithm\'s fault (60 seconds, honest breakdown)',
+   points:'Point to: wrong audience, sending to homepage, no retargeting, no clear CTA, ad looks too much like an ad. Film yourself simply and directly. Very shareable — every business owner has had this frustration.'},
+
+  {day:25,dayName:'Thu',type:'organic',format:'Carousel',theme:'Value',time:'9:00 AM',
+   hook:'The 5 Instagram ad mistakes I see every Bangalore business making (and the fix for each):',
+   points:'Slide 1: Hook. Slide 2: Audience too broad → use lookalike audiences. Slide 3: No landing page → create dedicated page. Slide 4: Creative too polished → raw authentic converts 3× better. Slide 5: No retargeting → set up 7-day pixel. Slide 6: No CTA → add one everywhere. Last slide: "Tag a business owner who needs this."'},
+
+  {day:26,dayName:'Fri',type:'organic',format:'Text',theme:'Insight',time:'8:30 AM',
+   hook:'I\'ve audited 20+ Bangalore business Instagram pages this month. 90% make the exact same 3 mistakes.',
+   points:'Mistake 1: Posting for followers, not for clients. Mistake 2: No clear offer anywhere on the page. Mistake 3: No CTA in any caption or bio. Expand each briefly. End: "Which one is your page guilty of?"'},
+
+  {day:27,dayName:'Mon',type:'ads',format:'Ad',theme:'Testimonial Ad',time:'—',
+   hook:'AD: Social proof — if you have any early results or testimonials, run a trust ad',
+   points:'Even one happy client quote is powerful. Create an ad with their quote + result + your offer. "After working with [your name], we got 12 leads in 2 weeks from LinkedIn." If no testimonial yet, use a before/after stat from your own work. Trust ads often outperform feature ads significantly.',
+   target:'People who clicked previous ads but didn\'t convert (retargeting)',
+   budget:'₹1,500 — warm audience only',
+   adformat:'Single image with quote graphic',
+   goal:'Convert warm leads who hesitated'},
+
+  {day:29,dayName:'Mon',type:'organic',format:'Text',theme:'Month 1 review',time:'9:00 AM',
+   hook:'Month 1 of commission-based digital marketing in India: honest numbers, real lessons.',
+   points:'Share real metrics: connections grown, posts published, DMs sent, leads generated, calls booked. What surprised you. What\'s harder than expected. What you changed. End: "What month-1 lesson changed how you work professionally?"'},
+
+  {day:30,dayName:'Tue',type:'organic',format:'Carousel',theme:'Education',time:'8:30 AM',
+   hook:'What ₹5,000 in digital marketing ads actually gets you on each platform (honest comparison for Indian businesses):',
+   points:'Slide 1: Hook. Slide 2: Meta/Instagram — CPL ₹150–500, B2C works best, needs good creative. Slide 3: LinkedIn — CPL ₹800–2,500, B2B only, higher quality leads. Slide 4: Google — intent-based, works for specific search terms. Slide 5: What matters more than platform: the offer. Last: "Which platform are you on? Drop in comments."'},
+
+  {day:32,dayName:'Thu',type:'organic',format:'Poll',theme:'Engagement',time:'9:00 AM',
+   hook:'If you had ₹10,000 for digital marketing this month, where would you spend it first?',
+   points:'Option 1: Meta/Instagram ads. Option 2: Google ads. Option 3: LinkedIn ads. Option 4: Content creation. Comment: "I\'ll tell you what works best based on your specific business type — just tell me what you sell."'},
+
+  {day:33,dayName:'Fri',type:'organic',format:'Video',theme:'Story',time:'8:00 AM',
+   hook:'The DM that changed how I do outreach forever — story time (60 seconds)',
+   points:'Story: sent a pitch DM, got rejected hard, person told you exactly why. What you learned. What you changed. What happened next. Authentic rejection stories get massive shares because everyone relates.'},
+
+  {day:34,dayName:'Mon',type:'ads',format:'Ad',theme:'Month 2 Campaign Reset',time:'—',
+   hook:'AD: Month 2 — Scale what worked, kill what didn\'t. New creative test.',
+   points:'Review month 1: Which ad got lowest CPL? Double its budget. Pause the worst performer. Create 2 new ad copies based on comments and DMs you received — use the exact language your audience used. Test new headline: "Most Indian businesses lose 60% of their marketing budget. Here\'s why."',
+   target:'Same as month 1 best performer — plus add Hosur and Chennai geos for event clients',
+   budget:'₹4,500 main + ₹2,000 new creative test',
+   adformat:'Best format from month 1 results',
+   goal:'Reduce CPL by 20% from month 1'},
+
+  {day:36,dayName:'Mon',type:'organic',format:'Text',theme:'Advice',time:'9:00 AM',
+   hook:'If I were starting a digital marketing consultancy in India from zero today, here\'s what I\'d do differently:',
+   points:'Point 1: Pick one niche — not every industry. Point 2: LinkedIn organic first, paid second. Point 3: Price on value delivered, not hours worked. Point 4: Document everything publicly — build in public. Point 5: Get one amazing case study before scaling. End: "What would you add?"'},
+
+  {day:37,dayName:'Tue',type:'organic',format:'Carousel',theme:'How-to',time:'8:30 AM',
+   hook:'How to use LinkedIn groups to get warm leads without cold pitching anyone (5-step system):',
+   points:'Slide 1: Hook. Slide 2: Join groups where clients hang out, not peer groups. Slide 3: Observe for 1 week — learn their language and pain points. Slide 4: Answer questions daily, no promotion. Slide 5: DM after genuine interaction — "I saw your question about X, I\'ve helped businesses with this." Slide 6: Groups let you message without connecting — bypass connection limits. Last: "Which groups are you in?"'},
+
+  {day:39,dayName:'Thu',type:'organic',format:'Text',theme:'Hot take',time:'9:00 AM',
+   hook:'Truth: Most digital marketing "experts" in India have never actually spent their own money on ads. Here\'s how to spot the difference.',
+   points:'What this means when hiring: red flags (no real numbers, vague claims, talks about reach not leads). Green flags (shows specific CPL, talks about conversion, has skin in the game). The 3 questions to ask any agency. End: "What question would you add to vet a digital marketer?"'},
+
+  {day:40,dayName:'Fri',type:'organic',format:'Poll',theme:'Engagement',time:'8:30 AM',
+   hook:'Be honest: Do you actually track ROI from your digital marketing?',
+   points:'Option 1: Yes, precisely. Option 2: Kind of — rough numbers. Option 3: No, I just post. Option 4: Don\'t even know where to start. Follow-up: offer a free ROI tracking template in comments to anyone who replies.'},
+
+  {day:41,dayName:'Mon',type:'ads',format:'Ad',theme:'International Targeting',time:'—',
+   hook:'AD: International campaign — target US/UK/Australia agency owners and marketing leaders',
+   points:'Separate campaign for international. Different creative: "India-based digital marketing agency — Fortune 500 quality at SME price. Free strategy consultation." Target: Agency owners, CMOs, VPs Marketing in US/UK/AU. Position Indian quality + time zone advantage (24hr turnaround). Run 3–4 days/week.',
+   target:'US/UK/Australia — Agency Owners, CMOs, Marketing Directors — B2B',
+   budget:'₹2,500 for international test — separate from India budget',
+   adformat:'Single image — professional tone, show results',
+   goal:'1 international discovery call per month'},
+
+  {day:43,dayName:'Mon',type:'organic',format:'Text',theme:'Education',time:'9:00 AM',
+   hook:'What "good" digital marketing metrics actually look like for an Indian SME (the numbers most agencies won\'t tell you):',
+   points:'CPL on Meta: ₹150–500 for B2C. CPL on LinkedIn: ₹800–2,500 for B2B. Healthy ROAS: 3:1 minimum. Landing page conversion: 2–5% is average, 8%+ is great. What a good lead quality score looks like. End: "What metrics are you currently tracking?"'},
+
+  {day:44,dayName:'Tue',type:'organic',format:'Video',theme:'Education',time:'8:00 AM',
+   hook:'3 LinkedIn mistakes that are killing your reach right now — fix all 3 in 5 minutes',
+   points:'Mistake 1: Links in post body (kills reach 3×). Mistake 2: Not replying to comments in 90 min window. Mistake 3: Posting at wrong times. Film yourself, quick and direct. Very shareable for digital marketing audience.'},
+
+  {day:46,dayName:'Thu',type:'organic',format:'Carousel',theme:'Case study',time:'9:00 AM',
+   hook:'How a Bangalore agency went from 0 to 5 LinkedIn leads per week without spending on ads (exact steps):',
+   points:'Slide 1: Hook. Slide 2: Profile optimization — headline + banner. Slide 3: Content strategy — 3 posts/week, 4 formats. Slide 4: Outreach sequence — 3-step DM. Slide 5: Group strategy — 5 groups, answer questions daily. Slide 6: Results by week. Last: "Want me to audit your LinkedIn? Drop your profile in comments."'},
+
+  {day:47,dayName:'Fri',type:'organic',format:'Text',theme:'Personal story',time:'8:30 AM',
+   hook:'I almost quit after week 3. Then this happened.',
+   points:'Honest moment of doubt. What nearly made you stop — the silence, the rejection, the uncertainty. The one thing that turned it around. Lesson: consistency compounds and most people quit right before breakthrough. End: "Has there been a moment you almost quit something worth doing?"'},
+
+  {day:48,dayName:'Mon',type:'ads',format:'Ad',theme:'Event Clients Campaign',time:'—',
+   hook:'AD: Targeted campaign for event clients — Bangalore, Hosur, Chennai businesses needing event marketing',
+   points:'Separate campaign for the events clients (yellove_creations, playful_explorers). Target event organizers, venue managers, corporate HR (for team events), and wedding planners in Bangalore/Hosur/Chennai. Ad: "Need to fill seats at your next event? We do event marketing that actually sells tickets." Location target only those 3 cities.',
+   target:'Event organizers, Venue managers, Corporate HR, Wedding planners — Bangalore/Hosur/Chennai',
+   budget:'₹2,000 — geo-targeted, city radius 30km',
+   adformat:'Video ad showing event footage OR carousel of past events',
+   goal:'Generate 3–5 event marketing inquiries'},
+
+  {day:50,dayName:'Mon',type:'organic',format:'Text',theme:'Contrarian',time:'9:00 AM',
+   hook:'Stop trying to go viral. Build an audience that trusts you instead.',
+   points:'Viral = random people who forget you in 24 hours. Trust = people who buy when you finally offer something. The difference in content strategy. Why 1,000 right followers beats 100,000 random ones. Building in public vs performing for algorithms. End: "What\'s one person in your audience whose problem you truly understand?"'},
+
+  {day:51,dayName:'Tue',type:'organic',format:'Carousel',theme:'Education',time:'8:30 AM',
+   hook:'The exact LinkedIn outreach sequence I use to book 3–5 discovery calls every week (copy this):',
+   points:'Slide 1: Hook. Slide 2: Day 0 — connection request (personalized note, mention something specific about them). Slide 3: Day 2 — value message (share relevant insight, no ask). Slide 4: Day 5 — soft ask ("happy to share what worked for businesses like yours"). Slide 5: Day 10 — follow up once. Slide 6: What NOT to say ever. Last: "Save this sequence."'},
+
+  {day:53,dayName:'Thu',type:'organic',format:'Video',theme:'Behind the scenes',time:'8:00 AM',
+   hook:'My entire LinkedIn content process in 60 seconds — no fancy tools, no team, just this',
+   points:'Show actual daily routine: check comments → reply fast → write today\'s post → schedule it → DM 5 new connections → comment on 10 prospects\' posts. Demystifies content creation. Shows it\'s a system not talent. Very relatable and shareable.'},
+
+  {day:54,dayName:'Fri',type:'organic',format:'Poll',theme:'Engagement',time:'9:00 AM',
+   hook:'For Indian business owners: What\'s stopping you from investing more in digital marketing?',
+   points:'Option 1: Don\'t know if it actually works. Option 2: Had a bad experience with an agency. Option 3: No budget right now. Option 4: Don\'t know where to start. Comment: Address each option with 1 real answer. Show you understand each objection.'},
+
+  {day:55,dayName:'Mon',type:'ads',format:'Ad',theme:'Q3 Push',time:'—',
+   hook:'AD: Month 3 scale — if results good, increase budget and add new format',
+   points:'If month 1 and 2 gave CPL under ₹2,000: increase total budget to ₹10,000. Add Thought Leader Ad — boost one of your best organic posts as an ad. Thought Leader Ads use your personal profile not company page — higher trust, better CTR. Best content to boost: your highest-save carousel or most-commented text post.',
+   target:'Same best-performing audience from month 2',
+   budget:'₹5,000 main + ₹3,000 thought leader ad boost',
+   adformat:'Thought Leader Ad (personal post boosted)',
+   goal:'Lower CPL using personal brand authority'},
+
+  {day:57,dayName:'Mon',type:'organic',format:'Text',theme:'Education',time:'9:00 AM',
+   hook:'The difference between boosting a post and running a real Facebook ad (most Indian businesses don\'t know this — and it\'s costing them).',
+   points:'Boost: lazy audience, LinkedIn/Meta keeps most profit, no optimization. Real ad: custom audience, pixel-tracked, A/B tested, optimized for leads. Real ROI difference with numbers. End: "Are you boosting or advertising?"'},
+
+  {day:58,dayName:'Tue',type:'organic',format:'Carousel',theme:'Value',time:'8:30 AM',
+   hook:'7 questions to ask any digital marketing agency before signing a contract (save this before your next agency meeting):',
+   points:'Q1: Show me real campaign results with actual CPL numbers. Q2: Who handles my account daily — senior or junior? Q3: How often do you report and what metrics? Q4: What happens if targets aren\'t met? Q5: Do I own my ad creatives and audience data if I leave? Q6: Minimum contract term? Q7: What\'s your testing process? Last: "Share with anyone evaluating an agency."'},
+
+  {day:60,dayName:'Thu',type:'organic',format:'Text',theme:'Milestone',time:'9:00 AM',
+   hook:'Day 60 of building in public: what\'s working, what failed, and what month 3 looks like.',
+   points:'Real honest update: followers gained, leads generated from organic, leads from paid, calls booked, clients closed, commission earned. 1 unexpected win. 1 complete failure. What you\'re changing. End: "What do you want me to track and report in month 3?"'},
+
+  {day:61,dayName:'Fri',type:'organic',format:'Video',theme:'Education',time:'8:00 AM',
+   hook:'Why every Bangalore business should have a LinkedIn company page in 2026 — and how to set one up in 10 minutes',
+   points:'Short video. Decision-makers use LinkedIn. B2B leads are here. How to set up company page fast (show screen if possible). CTA: "Drop your business type below — I\'ll tell you exactly what your first 3 LinkedIn posts should be."'},
+
+  {day:62,dayName:'Mon',type:'ads',format:'Ad',theme:'LinkedIn Message Ad',time:'—',
+   hook:'AD: Message Ad (InMail) — 50% open rate, direct to inbox',
+   points:'LinkedIn Message Ads go directly to prospects\' inboxes. 50% average open rate vs 20% for email. Keep message under 500 characters. Personalize with dynamic fields (first name, company). Offer: "Hi {first_name}, I help {company} businesses get more leads from LinkedIn. Free 15-min audit — no pitch, just clarity. Worth 15 minutes?" CTA: Book now.',
+   target:'CMOs, Marketing Directors, Founders — India + International',
+   budget:'₹2,000 — Message Ads billed per send',
+   adformat:'LinkedIn Message Ad (InMail)',
+   goal:'Direct conversations with decision-makers'},
+
+  {day:64,dayName:'Mon',type:'organic',format:'Text',theme:'Advice',time:'9:00 AM',
+   hook:'3 things I wish someone had told me before I started in digital marketing in India:',
+   points:'1: Most clients don\'t know what they want — your job is to tell them what they need. 2: Results take 60–90 days minimum, not 2 weeks. Set expectations before contract. 3: Relationships always outlast tactics. The client who trusts you gives 10× more than the one who just hired you. End: "What do you wish you\'d known earlier in your career?"'},
+
+  {day:65,dayName:'Tue',type:'organic',format:'Carousel',theme:'How-to',time:'8:30 AM',
+   hook:'How to audit your own digital marketing in 30 minutes — no agency needed (rate yourself out of 10):',
+   points:'Slide 1: Hook. Slide 2: Check CPL — do you know yours? Slide 3: Landing page conversion — is it 2%+? Slide 4: Retargeting — do you have it set up? Slide 5: Lead magnet — do you have one? Slide 6: CTA — is it clear in every post, ad, and email? Slide 7: Score yourself. Last: "Comment your score out of 10."'},
+
+  {day:67,dayName:'Thu',type:'organic',format:'Poll',theme:'Engagement',time:'9:00 AM',
+   hook:'What kind of LinkedIn content do you want more of from digital marketing professionals?',
+   points:'Option 1: Real case studies with actual numbers. Option 2: Step-by-step how-to tutorials. Option 3: Industry hot takes and contrarian opinions. Option 4: Behind-the-scenes of real client work. Use results to plan your next 30 days of content.'},
+
+  {day:68,dayName:'Fri',type:'organic',format:'Text',theme:'Story',time:'8:30 AM',
+   hook:'The client conversation that completely changed how I think about pricing my services.',
+   points:'Story of client who pushed back hard on your rate. What you said. What they said. The moment you realized you were pricing on cost not value. How you now frame value conversations. The price you now charge and why. End: "How do you handle price pushback?"'},
+
+  {day:69,dayName:'Mon',type:'ads',format:'Ad',theme:'Retargeting Video',time:'—',
+   hook:'AD: Video retargeting — show video ad to people who engaged with your organic content',
+   points:'Create a simple 30-second video: face to camera, "You\'ve been seeing my content about digital marketing for Indian businesses. Here\'s how I actually help — [30-sec explanation of process and results]. If this resonates, let\'s talk. Free strategy call, no commitment." Target: custom audience of LinkedIn post engagers + profile viewers.',
+   target:'Custom audience: LinkedIn post engagers last 60 days + profile viewers',
+   budget:'₹1,500 — small but warm audience',
+   adformat:'Video Ad — face to camera, 30 seconds',
+   goal:'Convert warm audience to booked calls'},
+
+  {day:71,dayName:'Mon',type:'organic',format:'Video',theme:'Education',time:'8:00 AM',
+   hook:'The one number every Indian business should track in digital marketing — most ignore it completely',
+   points:'CPL — cost per lead. How to calculate it (ad spend ÷ leads). What good looks like per platform. Why it matters more than impressions, reach, or followers. How to use it to make better budget decisions. Film yourself clearly, talk directly. Very useful and shareable.'},
+
+  {day:72,dayName:'Tue',type:'organic',format:'Carousel',theme:'Value',time:'8:30 AM',
+   hook:'LinkedIn for B2B lead generation: the complete organic strategy in 8 slides (everything I\'ve learned in 90 days)',
+   points:'Slide 1: Hook. Slide 2: Profile = storefront (optimize first). Slide 3: Post 3–4×/week consistently. Slide 4: Comment 10×/day on prospects\' posts. Slide 5: 3-step DM sequence. Slide 6: Group strategy — 5 groups. Slide 7: 60-day consistency = compounding reach. Slide 8: Review and adapt monthly. Last: "Which step are you on?"'},
+
+  {day:74,dayName:'Thu',type:'organic',format:'Text',theme:'Contrarian',time:'9:00 AM',
+   hook:'The best digital marketing strategy for most Indian SMEs isn\'t Instagram. It\'s something much more boring.',
+   points:'WhatsApp broadcast + email marketing. The numbers: email open rates 30%+ vs Instagram reach 3–5%. Why owned channels beat rented ones. How to build your list from existing customers. This will get debate — which is exactly why you post it. End: "Do you agree or disagree?"'},
+
+  {day:75,dayName:'Fri',type:'organic',format:'Poll',theme:'Engagement',time:'9:00 AM',
+   hook:'What digital marketing channel has given you the best ROI in the past 6 months?',
+   points:'Option 1: Instagram/Meta ads. Option 2: Google Ads. Option 3: LinkedIn organic. Option 4: WhatsApp/email. Comment with your context after voting. This generates massive discussion and gives you content ideas for the next month.'},
+
+  {day:76,dayName:'Mon',type:'ads',format:'Ad',theme:'Lead Magnet Ad',time:'—',
+   hook:'AD: Lead magnet campaign — offer free resource to build email list alongside LinkedIn leads',
+   points:'Create a free resource: "The Indian Business Digital Marketing Checklist — 25 things to check before spending ₹1 on ads." Promote it via LinkedIn Lead Gen Form. They get the checklist, you get their email. Email list = owned audience you can market to forever, unlike LinkedIn connections. Use this email list for follow-up sequences.',
+   target:'All Indian business owners — broad targeting OK for lead magnets',
+   budget:'₹2,000 — awareness + list building',
+   adformat:'Document Ad (checklist preview) + Lead Gen Form',
+   goal:'Build email list — 20+ downloads this month'},
+
+  {day:78,dayName:'Mon',type:'organic',format:'Text',theme:'Education',time:'9:00 AM',
+   hook:'What I\'d spend ₹20,000/month on if I were a Bangalore business owner (honest priority order):',
+   points:'1st: A strong landing page (one-time cost). 2nd: Meta retargeting ads ₹5,000. 3rd: 1 short video/week content. 4th: LinkedIn organic strategy. 5th: Google search ads for high-intent keywords. Everything else: only after these 5 are working. End: "What would you add or change in this order?"'},
+
+  {day:79,dayName:'Tue',type:'organic',format:'Carousel',theme:'Case study',time:'8:30 AM',
+   hook:'How we use LinkedIn to attract international clients for an Indian digital agency (step-by-step, no paid ads):',
+   points:'Slide 1: Hook. Slide 2: Company page optimized for global positioning. Slide 3: Content that shows global credibility (international case studies, English-first content). Slide 4: Targeting international decision-makers via DMs and groups. Slide 5: International DM approach — timezone and context awareness. Slide 6: The India advantage to pitch: "Fortune 500 quality, SME price, 24hr turnaround." Last: "Are you an Indian agency going global? Comment below."'},
+
+  {day:81,dayName:'Thu',type:'organic',format:'Video',theme:'Behind the scenes',time:'8:00 AM',
+   hook:'My complete LinkedIn daily routine revealed in 60 seconds — this is what I actually do every day',
+   points:'Show complete daily routine: 8 AM post → reply all comments by 9:30 AM → 10 AM DM 5 new connections → 11 AM comment on 10 prospect posts → check campaign metrics. Shows it\'s a system anyone can replicate. Very followable content.'},
+
+  {day:82,dayName:'Fri',type:'organic',format:'Text',theme:'Hot take',time:'8:30 AM',
+   hook:'The digital marketing agency industry in India has a trust problem. And honestly, clients are right to be skeptical.',
+   points:'What agencies promise vs what they deliver. Why this happens (chasing retainers over results). What honest agencies do differently. How to find them. How to be one. End: "What\'s your experience with agencies — good or bad? Tell me honestly."'},
+
+  {day:83,dayName:'Mon',type:'ads',format:'Ad',theme:'Final Month Push',time:'—',
+   hook:'AD: Month 3 final push — run best-performing ad with full remaining budget',
+   points:'Take the single best-performing ad from the past 2 months (lowest CPL, highest completion rate). Put 80% of remaining budget behind it. Don\'t experiment in the final month push — scale what\'s proven. Also run 1 retargeting campaign to warm leads who still haven\'t booked. Send final InMail to unconverted leads from months 1–2.',
+   target:'Best-performing audience from previous months',
+   budget:'₹5,000 best performer + ₹2,000 retargeting',
+   adformat:'Proven best format from previous months',
+   goal:'Maximize conversions before month-end review'},
+
+  {day:85,dayName:'Mon',type:'organic',format:'Carousel',theme:'Value',time:'9:00 AM',
+   hook:'Everything I\'ve learned about LinkedIn marketing in 90 days — the complete honest summary (save this):',
+   points:'Slide 1: Hook. Slide 2: Organic beats paid for trust — both are needed. Slide 3: Comments carry 7× weight of likes. Slide 4: Consistency 60+ days = compounding. Slide 5: Groups give free access to warm leads. Slide 6: Personal profile > company page always. Slide 7: Video is the #1 format in 2026. Slide 8: CPL is the only metric that matters. Last: "What was your biggest LinkedIn lesson this quarter?"'},
+
+  {day:87,dayName:'Wed',type:'organic',format:'Text',theme:'Milestone',time:'9:00 AM',
+   hook:'Day 87 of building in public: real numbers from 90 days of LinkedIn-first digital marketing in India.',
+   points:'Exact metrics: followers gained, organic reach, posts published, DMs sent, group conversations, paid leads generated, calls booked, proposals sent, clients closed, total commission earned. What surprised me most. What I\'m changing for month 4. End: "What\'s your 90-day LinkedIn goal?"'},
+
+  {day:89,dayName:'Fri',type:'organic',format:'Video',theme:'Thank you',time:'8:30 AM',
+   hook:'90 days, built in public. Here\'s what month 4 looks like — and thank you for following this.',
+   points:'Genuine thank-you post. What you\'re expanding to (Meta, Google eventually). Promise of more case studies and real numbers. What you\'re working on next. Strong CTA: "If you\'re a Bangalore business owner or a company looking for digital marketing — DM me. Let\'s talk."'},
+];
+
+// ─── STATE ───────────────────────────────────────────────────────────────────
+let chip='all', weekFilter=0, view='list', tone='professional';
+let activeIdx=null, caption='';
+let statuses={};
+try{const s=localStorage.getItem('li_st_v2');if(s)statuses=JSON.parse(s);}catch(e){}
+const saveS=()=>{try{localStorage.setItem('li_st_v2',JSON.stringify(statuses));}catch(e){}};
+
+// ─── NAV ─────────────────────────────────────────────────────────────────────
+function showTab(id){
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  event.currentTarget.classList.add('active');
+  document.querySelectorAll('.section-pane').forEach(p=>p.classList.remove('active'));
+  document.getElementById('tab-'+id).classList.add('active');
+  const titles={calendar:'Content Calendar — 90 Days',ads:'Ad Strategy & Targeting',profile:'Profile Checklist',groups:'Group Marketing Strategy',tips:'Algorithm & Posting Tips'};
+  document.getElementById('topbar-title').textContent=titles[id]||id;
+  document.getElementById('filterbar').style.display=id==='calendar'?'flex':'none';
+  document.getElementById('view-toggle').style.display=id==='calendar'?'flex':'none';
+}
+
+function jumpWeek(w){
+  weekFilter=w;
+  document.querySelectorAll('.week-btn').forEach((b,i)=>b.classList.toggle('active',i===w));
+  render();
+}
+
+// ─── FILTERS ─────────────────────────────────────────────────────────────────
+function setChip(c,el){
+  chip=c;
+  document.querySelectorAll('.chip').forEach(x=>x.classList.remove('active'));
+  el.classList.add('active');
+  render();
+}
+function setView(v){
+  view=v;
+  document.querySelectorAll('.vbtn').forEach((b,i)=>b.classList.toggle('active',(i===0&&v==='list')||(i===1&&v==='cal')));
+  document.getElementById('list-view').className='list-view'+(v==='list'?'':' hidden');
+  document.getElementById('cal-view').className='cal-view'+(v==='cal'?' visible':'');
+  if(v==='cal')renderCal();
+}
+
+// ─── STATUS & COUNTS ─────────────────────────────────────────────────────────
+function getStatus(p){return statuses[p.day]||p.status||'planned';}
+function updateCounts(){
+  let pl=0,dr=0,po=0;
+  POSTS.forEach(p=>{const s=getStatus(p);if(s==='planned')pl++;else if(s==='drafted')dr++;else if(s==='posted')po++;});
+  document.getElementById('cnt-planned').textContent=pl;
+  document.getElementById('cnt-drafted').textContent=dr;
+  document.getElementById('cnt-posted').textContent=po;
+  const pct=Math.round((po/POSTS.length)*100);
+  document.getElementById('prog-pct').textContent=pct+'%';
+  document.getElementById('prog-fill').style.width=pct+'%';
+}
+
+// ─── FILTER POSTS ────────────────────────────────────────────────────────────
+function filtered(){
+  let posts=[...POSTS];
+  const q=(document.getElementById('search').value||'').toLowerCase();
+  if(q)posts=posts.filter(p=>p.hook.toLowerCase().includes(q)||p.theme.toLowerCase().includes(q)||p.format.toLowerCase().includes(q));
+  if(chip==='organic')posts=posts.filter(p=>p.type==='organic');
+  else if(chip==='ads')posts=posts.filter(p=>p.type==='ads');
+  else if(chip!=='all')posts=posts.filter(p=>p.format===chip);
+  if(weekFilter>0){
+    const ranges=[[],[1,14],[15,28],[29,42],[43,56],[57,70],[71,90]];
+    const r=ranges[weekFilter];
+    if(r)posts=posts.filter(p=>p.day>=r[0]&&p.day<=r[1]);
+  }
+  return posts;
+}
+
+// ─── RENDER LIST ─────────────────────────────────────────────────────────────
+function render(){
+  updateCounts();
+  const posts=filtered();
+  const container=document.getElementById('list-view');
+  if(!posts.length){container.innerHTML='<div class="empty"><p>No posts match your filters.</p></div>';return;}
+
+  const weeks={};
+  posts.forEach(p=>{const w=Math.ceil(p.day/7);if(!weeks[w])weeks[w]=[];weeks[w].push(p);});
+
+  let html='';
+  Object.keys(weeks).sort((a,b)=>a-b).forEach(w=>{
+    const wPosts=weeks[w];
+    const start=(w-1)*7+1,end=Math.min(w*7,90);
+    const labels=['Foundation','Build','Engage','Scale','Convert','Deep Work','Review & Scale'];
+    const lbl=labels[Math.min(w-1,labels.length-1)]||'';
+    html+=`<div class="week-group"><div class="week-hdr"><div class="week-tag">Week ${w}</div><div class="week-line"></div><div class="week-meta">Days ${start}–${end} · ${lbl}</div></div>`;
+    wPosts.forEach(p=>{
+      const idx=POSTS.indexOf(p);
+      const status=getStatus(p);
+      const isAds=p.type==='ads';
+      const fmtCls=isAds?'fmt-ad':`fmt-${p.format.toLowerCase()}`;
+      const typeCls=isAds?'type-ads':'type-organic';
+      const cardCls=isAds?'ads-card':'organic-card';
+      html+=`<div class="post-card ${cardCls}" onclick="openModal(${idx})">
+        <div class="date-col">
+          <div class="date-day">${p.dayName}</div>
+          <div class="date-num">${String(p.day).padStart(2,'0')}</div>
+          <div class="date-label">Day</div>
+          ${p.time!=='—'?`<div class="date-time">${p.time}</div>`:'<div class="date-time" style="background:var(--orange-light);color:var(--orange)">Ad</div>'}
+        </div>
+        <div class="post-info">
+          <div class="meta-row">
+            <span class="fmt-badge ${fmtCls}">${isAds?'📣 AD':p.format}</span>
+            <span class="type-badge ${typeCls}">${isAds?'Paid':'Organic'}</span>
+            <span class="theme-pill">${p.theme}</span>
+          </div>
+          <div class="post-title">${p.hook}</div>
+          <div class="post-preview">${p.points.substring(0,120)}…</div>
+          ${isAds?`<div class="ad-targets"><span class="target-tag">👤 ${(p.target||'').substring(0,40)}</span><span class="budget-tag">💰 ${p.budget||''}</span></div>`:''}
+        </div>
+        <div class="actions-col">
+          <span class="status-btn st-${status}" onclick="cycleStatus(event,${idx})">${status.charAt(0).toUpperCase()+status.slice(1)}</span>
+          <button class="gen-btn" onclick="event.stopPropagation();openModal(${idx})">${isAds?'📋 View Ad':'✨ Generate'}</button>
+        </div>
+      </div>`;
+    });
+    html+='</div>';
+  });
+  container.innerHTML=html;
+}
+
+// ─── RENDER CALENDAR ─────────────────────────────────────────────────────────
+function renderCal(){
+  const postMap={};
+  POSTS.forEach((p,i)=>{if(!postMap[p.day])postMap[p.day]=[];postMap[p.day].push({p,i});});
+  const colorMap={Carousel:'var(--pink)',Text:'var(--amber)',Video:'var(--coral)',Poll:'var(--green)',Ad:'var(--orange)'};
+  let html='<div class="cal-grid">';
+  ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'].forEach(d=>html+=`<div class="cal-hdr">${d}</div>`);
+  for(let day=1;day<=90;day++){
+    const dow=(day-1)%7;
+    const isRest=dow===5||dow===6;
+    const entries=postMap[day]||[];
+    const hasOrganic=entries.some(e=>e.p.type==='organic');
+    const hasAds=entries.some(e=>e.p.type==='ads');
+    const dayClass=isRest?'rest':hasOrganic&&hasAds?'both-day':hasOrganic?'organic-day':hasAds?'ads-day':'';
+    html+=`<div class="cal-day ${dayClass}"${entries.length?' onclick="openModal('+entries[0].i+')"':''}><div class="cal-dnum">D${day}</div>`;
+    if(isRest)html+=`<div style="font-size:9px;color:var(--muted2)">Rest</div>`;
+    entries.forEach(e=>{
+      const fmt=e.p.type==='ads'?'Ad':e.p.format;
+      const col=colorMap[fmt]||'var(--accent)';
+      html+=`<span class="cal-chip" style="background:${col}20;color:${col}">${fmt}</span>`;
+    });
+    html+='</div>';
+  }
+  html+='</div>';
+  document.getElementById('cal-view').innerHTML=html;
+}
+
+// ─── STATUS CYCLE ────────────────────────────────────────────────────────────
+function cycleStatus(e,idx){
+  e.stopPropagation();
+  const p=POSTS[idx];
+  const cycle=['planned','drafted','posted'];
+  const cur=getStatus(p);
+  statuses[p.day]=cycle[(cycle.indexOf(cur)+1)%cycle.length];
+  saveS();render();
+}
+function markStatus(s){
+  if(activeIdx===null)return;
+  statuses[POSTS[activeIdx].day]=s;
+  saveS();render();
+  toast('Marked as '+s);
+}
+
+// ─── MODAL ───────────────────────────────────────────────────────────────────
+function openModal(idx){
+  activeIdx=idx;
+  const p=POSTS[idx];
+  const isAds=p.type==='ads';
+  document.getElementById('m-title').textContent=p.hook.substring(0,70)+(p.hook.length>70?'…':'');
+  document.getElementById('m-sub').textContent=`Day ${p.day} · ${isAds?'Paid Ad':'Organic'} · ${p.theme}`;
+  document.getElementById('m-type').textContent=isAds?'💰 Paid Ad':'🌱 Organic';
+  document.getElementById('m-format').textContent=isAds?'LinkedIn Ad':p.format;
+  document.getElementById('m-time').textContent=p.time==='—'?'Run anytime':p.time+' IST';
+  document.getElementById('m-theme').textContent=p.theme;
+  document.getElementById('m-hook').textContent=p.hook;
+  document.getElementById('m-points').textContent=p.points;
+  const adsSection=document.getElementById('m-ads-section');
+  if(isAds){
+    adsSection.style.display='block';
+    document.getElementById('m-target').textContent=p.target||'—';
+    document.getElementById('m-budget').textContent=p.budget||'—';
+    document.getElementById('m-adformat').textContent=p.adformat||'—';
+    document.getElementById('m-goal').textContent=p.goal||'—';
+  } else {
+    adsSection.style.display='none';
+  }
+  document.getElementById('caption-box').innerHTML='<span class="caption-placeholder">Click "Generate Caption" — AI will write your full LinkedIn post based on this day\'s idea, hook, and tone.</span>';
+  document.getElementById('char-count').textContent='';
+  caption='';
+  document.getElementById('overlay').classList.add('open');
+}
+function closeModal(){
+  document.getElementById('overlay').classList.remove('open');
+  activeIdx=null;
+}
+document.getElementById('overlay').addEventListener('click',function(e){if(e.target===this)closeModal();});
+
+// ─── TONE ────────────────────────────────────────────────────────────────────
+function setTone(el,t){
+  tone=t;
+  document.querySelectorAll('.tone-btn').forEach(b=>b.classList.remove('active'));
+  el.classList.add('active');
+}
+
+// ─── CAPTION GENERATION ──────────────────────────────────────────────────────
+async function generateCaption(){
+  if(activeIdx===null)return;
+  const p=POSTS[activeIdx];
+  const box=document.getElementById('caption-box');
+  const btn=document.getElementById('gen-btn');
+
+  box.innerHTML='<div class="caption-loading"><div class="spinner"></div><span>Writing your LinkedIn caption…</span></div>';
+  btn.disabled=true;btn.textContent='Writing…';
+
+  const tones={
+    professional:'Professional and authoritative. Clear, credible, results-focused. Speaks like a confident consultant to business owners.',
+    conversational:'Warm and conversational, like talking to a smart friend. Casual but knowledgeable. Use contractions. Very human.',
+    bold:'Bold, direct, and punchy. Short sentences. Strong opinions. No hedging. Makes a confident claim right from the start.',
+    storytelling:'Written as a narrative story. Personal anecdote or client scenario. Build tension then resolution. Emotional and real.'
+  };
+
+  const system=`You are a LinkedIn content expert writing for an Indian digital marketing consultant based in Bangalore. You write viral LinkedIn posts that attract Indian business owners (SMEs, founders, MDs) as clients for digital marketing services. Your posts are also seen by international clients looking for Indian agencies.
+
+STRICT FORMAT RULES — ALWAYS FOLLOW:
+- Maximum 2 lines per paragraph — use generous line breaks
+- Short, punchy sentences — especially the opening
+- NO bullet points using dashes — use arrows (→) or numbers (1. 2. 3.) only if absolutely needed
+- First 2 lines = the hook — must stop the scroll before "see more"
+- End with ONE specific question that invites comments (not "What do you think?")
+- NEVER include external links — write "link in first comment 👇" if needed
+- Target length: 150–250 words
+- Maximum 3 hashtags, placed at very end only
+- Use real Indian context: ₹ for currency, Bangalore, Indian businesses, Indian market
+- Use specific numbers wherever possible — not "many" but "47" not "some" but "₹8,000"
+- Tone: ${tones[tone]}`;
+
+  const user=`Write a complete LinkedIn post for this:
+
+Post type: ${p.type==='ads'?'LinkedIn Ad copy (needs to stop scroll in feed)':'Organic LinkedIn post'}
+Format: ${p.format}
+Theme: ${p.theme}
+Hook to use/adapt: "${p.hook}"
+Content to cover: ${p.points}
+Tone: ${tone}
+
+${p.type==='ads'?'This is AD COPY — it must be attention-grabbing, create urgency, and have a clear CTA like "Click to claim your free audit." Make it feel natural in the LinkedIn feed, not like a hard sell.':'This is an organic post — educational, helpful, authentic. Build trust first.'}
+
+Write the complete post now. Start directly with the hook (no preamble). Follow all format rules strictly.`;
+
+  try{
+    const resp=await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',
+      headers:{
+        'Content-Type':'application/json',
+        'anthropic-version':'2023-06-01',
+        'anthropic-dangerous-direct-browser-access':'true'
+      },
+      body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:800,system,messages:[{role:'user',content:user}]})
+    });
+    const data=await resp.json();
+    if(data.content&&data.content[0]&&data.content[0].text){
+      caption=data.content[0].text;
+      box.textContent=caption;
+      const wc=caption.split(/\s+/).length;
+      document.getElementById('char-count').textContent=`${caption.length} characters · ~${wc} words`;
+    } else if(data.error&&(data.error.message||'').toLowerCase().includes('api-key')){
+      showFallback(box,p,system,user);
+    } else {
+      const errMsg=data.error?.message||JSON.stringify(data);
+      box.innerHTML=`<span style="color:var(--coral)">Error: ${errMsg}</span>`;
+    }
+  }catch(err){
+    showFallback(box,p,system,user);
+  }
+  btn.disabled=false;btn.textContent='✨ Generate Caption';
+}
+
+function showFallback(box,p,system,user){
+  box.innerHTML=`<span style="color:var(--coral)">Unable to connect to AI. Please try again.</span>`;
+}
+
+function copyCaption(){
+  if(!caption){toast('Generate a caption first');return;}
+  if(navigator.clipboard){
+    navigator.clipboard.writeText(caption).then(()=>toast('Caption copied!')).catch(()=>fallbackCopy());
+  } else {fallbackCopy();}
+}
+function fallbackCopy(){
+  const ta=document.createElement('textarea');
+  ta.value=caption;ta.style.position='fixed';ta.style.opacity='0';
+  document.body.appendChild(ta);ta.focus();ta.select();
+  try{document.execCommand('copy');toast('Caption copied!');}catch(e){toast('Copy manually with Ctrl+C');}
+  document.body.removeChild(ta);
+}
+
+// ─── PROFILE CHECKLIST PROGRESS ──────────────────────────────────────────────
+function saveProg(){
+  const checks=document.querySelectorAll('.check-input');
+  const done=[...checks].filter(c=>c.checked).length;
+  try{localStorage.setItem('li_prof_v2',JSON.stringify([...checks].map(c=>c.checked)));}catch(e){}
+}
+function loadProg(){
+  try{
+    const saved=JSON.parse(localStorage.getItem('li_prof_v2')||'[]');
+    const checks=document.querySelectorAll('.check-input');
+    checks.forEach((c,i)=>{if(saved[i])c.checked=true;});
+  }catch(e){}
+}
+
+// ─── TOAST ───────────────────────────────────────────────────────────────────
+function toast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg;t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),2200);
+}
+
+// ─── INIT ────────────────────────────────────────────────────────────────────
+render();
+loadProg();
+</script>
+</body>
+</html>
